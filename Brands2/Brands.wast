@@ -5047,7 +5047,7 @@
   (block $label$11
    (br_if $label$11
     (i32.eqz
-     (tee_local $1
+     (tee_local $2
       (select
        (i32.load
         (i32.add
@@ -5056,11 +5056,98 @@
         )
        )
        (i32.shr_u
-        (tee_local $1
+        (tee_local $2
          (i32.load8_u
           (i32.add
            (get_local $1)
            (i32.const 84)
+          )
+         )
+        )
+        (i32.const 1)
+       )
+       (i32.and
+        (get_local $2)
+        (i32.const 1)
+       )
+      )
+     )
+    )
+   )
+   (i32.store
+    (get_local $0)
+    (tee_local $4
+     (i32.add
+      (get_local $2)
+      (get_local $4)
+     )
+    )
+   )
+  )
+  (set_local $3
+   (i64.extend_u/i32
+    (select
+     (i32.load
+      (i32.add
+       (get_local $1)
+       (i32.const 100)
+      )
+     )
+     (i32.shr_u
+      (tee_local $2
+       (i32.load8_u offset=96
+        (get_local $1)
+       )
+      )
+      (i32.const 1)
+     )
+     (i32.and
+      (get_local $2)
+      (i32.const 1)
+     )
+    )
+   )
+  )
+  (loop $label$12
+   (set_local $4
+    (i32.add
+     (get_local $4)
+     (i32.const 1)
+    )
+   )
+   (br_if $label$12
+    (i64.ne
+     (tee_local $3
+      (i64.shr_u
+       (get_local $3)
+       (i64.const 7)
+      )
+     )
+     (i64.const 0)
+    )
+   )
+  )
+  (i32.store
+   (get_local $0)
+   (get_local $4)
+  )
+  (block $label$13
+   (br_if $label$13
+    (i32.eqz
+     (tee_local $1
+      (select
+       (i32.load
+        (i32.add
+         (get_local $1)
+         (i32.const 100)
+        )
+       )
+       (i32.shr_u
+        (tee_local $1
+         (i32.load8_u
+          (i32.add
+           (get_local $1)
+           (i32.const 96)
           )
          )
         )
@@ -5194,35 +5281,41 @@
      (call $_ZN5eosiolsINS_10datastreamIPcEEEERT_S5_RKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEE
       (call $_ZN5eosiolsINS_10datastreamIPcEEEERT_S5_RKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEE
        (call $_ZN5eosiolsINS_10datastreamIPcEEEERT_S5_RKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEE
-        (get_local $0)
+        (call $_ZN5eosiolsINS_10datastreamIPcEEEERT_S5_RKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEE
+         (get_local $0)
+         (i32.add
+          (get_local $1)
+          (i32.const 24)
+         )
+        )
         (i32.add
          (get_local $1)
-         (i32.const 24)
+         (i32.const 36)
         )
        )
        (i32.add
         (get_local $1)
-        (i32.const 36)
+        (i32.const 48)
        )
       )
       (i32.add
        (get_local $1)
-       (i32.const 48)
+       (i32.const 60)
       )
      )
      (i32.add
       (get_local $1)
-      (i32.const 60)
+      (i32.const 72)
      )
     )
     (i32.add
      (get_local $1)
-     (i32.const 72)
+     (i32.const 84)
     )
    )
    (i32.add
     (get_local $1)
-    (i32.const 84)
+    (i32.const 96)
    )
   )
  )
@@ -5550,35 +5643,41 @@
      (call $_ZN5eosiorsINS_10datastreamIPKcEEEERT_S6_RNSt3__112basic_stringIcNS7_11char_traitsIcEENS7_9allocatorIcEEEE
       (call $_ZN5eosiorsINS_10datastreamIPKcEEEERT_S6_RNSt3__112basic_stringIcNS7_11char_traitsIcEENS7_9allocatorIcEEEE
        (call $_ZN5eosiorsINS_10datastreamIPKcEEEERT_S6_RNSt3__112basic_stringIcNS7_11char_traitsIcEENS7_9allocatorIcEEEE
-        (get_local $0)
+        (call $_ZN5eosiorsINS_10datastreamIPKcEEEERT_S6_RNSt3__112basic_stringIcNS7_11char_traitsIcEENS7_9allocatorIcEEEE
+         (get_local $0)
+         (i32.add
+          (get_local $1)
+          (i32.const 24)
+         )
+        )
         (i32.add
          (get_local $1)
-         (i32.const 24)
+         (i32.const 36)
         )
        )
        (i32.add
         (get_local $1)
-        (i32.const 36)
+        (i32.const 48)
        )
       )
       (i32.add
        (get_local $1)
-       (i32.const 48)
+       (i32.const 60)
       )
      )
      (i32.add
       (get_local $1)
-      (i32.const 60)
+      (i32.const 72)
      )
     )
     (i32.add
      (get_local $1)
-     (i32.const 72)
+     (i32.const 84)
     )
    )
    (i32.add
     (get_local $1)
-    (i32.const 84)
+    (i32.const 96)
    )
   )
  )

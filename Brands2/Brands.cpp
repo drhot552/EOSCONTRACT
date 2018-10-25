@@ -20,7 +20,7 @@ class Brands : public eosio::contract
             string mf_dttm;
             string tx_dttm;
             uint64_t primary_key() const {return id;}
-            EOSLIB_SERIALIZE(brands,(id)(to)(from)(brands_name)(product_name)(brands_num)(type)(reg_dttm)(mf_dttm))
+            EOSLIB_SERIALIZE(brands,(id)(to)(from)(brands_name)(product_name)(brands_num)(type)(reg_dttm)(mf_dttm)(tx_dttm))
         };
         typedef multi_index<N(brands),brands> _brands;
         /// @abi action
