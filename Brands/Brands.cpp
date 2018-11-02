@@ -10,30 +10,42 @@ class Brands : public eosio::contract
         struct brands
         {
             uint64_t id;
+            account_name first;
             account_name to;
             account_name from;
             string brands_name;
+            string product_name;
             string brands_num;
+            string type;
+            string reg_dttm;
+            string mf_dttm;
+            string tx_dttm;
             uint64_t primary_key() const {return id;}
-            EOSLIB_SERIALIZE(brands,(id)(to)(from)(brands_name)(brands_num))
+            EOSLIB_SERIALIZE(brands,(id)(first)(to)(from)(brands_name)(product_name)(brands_num)(type)(reg_dttm)(mf_dttm)(tx_dttm))
         };
         typedef multi_index<N(brands),brands> _brands;
         /// @abi action
-        void create(uint64_t id, account_name user, account_name _from, string _brands_name, string _brands_num)
+        void create(uint64_t id, account_name first, account_name to, account_name from, string brands_name, string product_name,
+                     string brands_num, string type, string reg_dttm, string mf_dttm, string tx_dttm)
         {
              _brands tables(_self,_self);
 
             auto iter=tables.find(id);
             if(iter==tables.end())
             {
-                print("need insert\t");
                 tables.emplace(_self,[&](auto& brands)
                 {
                     brands.id = id;
-                    brands.to = user;
-                    brands.from = _from;
-                    brands.brands_num = _brands_num;
-                    brands.brands_name = _brands_name;
+                    brands.first = first;
+                    brands.to = to;
+                    brands.from = from;
+                    brands.brands_name = brands_name;
+                    brands.product_name = product_name;
+                    brands.brands_num = brands_num;
+                    brands.type = type;
+                    brands.reg_dttm = reg_dttm;
+                    brands.mf_dttm = mf_dttm;
+                    brands.tx_dttm = tx_dttm;
                 });
             }
             else
@@ -53,7 +65,7 @@ class Brands : public eosio::contract
             }
         }
         //edit (product edit)
-        void edit(uint64_t id, account_name org, string _brands_name, string _brands_num)
+        void edit(uint64_t id, string _product_name, string _brands_num, string _type, string _reg_dttm, string _mf_dttm)
         {
              _brands tables(_self,_self);
             auto iter=tables.find(id);
@@ -61,11 +73,38 @@ class Brands : public eosio::contract
             {
                 tables.modify(iter,_self,[&](auto& edit_table)
                 {
-                    edit_table.brands_name = _brands_name;
-                    edit_table.brands_num = _brands_num;
+                  edit_table.brands_num = _brands_num;
+                  edit_table.product_name = _product_name;
+                  edit_table.reg_dttm = _reg_dttm;
+                  edit_table.mf_dttm = _mf_dttm;
+                  edit_table.type = _type;
+
                 });
             }
         }
-};
-EOSIO_ABI(Brands,(create)(del)(edit))
+        void auth(uint64_t id, account_name first, account_name to, account_name from, string brands_name, string product_name,
+                     string brands_num, string type, string reg_dttm, string mf_dttm, string tx_dttm)
+        {
+            _brands tables(_self,_self);
+           auto iter=tables.find(id);
+           if(iter!=tables.end())
+           {
+               tables.modify(iter,_self,[&](auto& edit_table)
+               {
+                 edit_table.id = id;
+                 edit_table.first = first;
+                 edit_table.to = to;
+                 edit_table.from = from;
+                 edit_table.brands_name = brands_name;
+                 edit_table.product_name = product_name;
+                 edit_table.brands_num = brands_num;
+                 edit_table.type = type;
+                 edit_table.reg_dttm = reg_dttm;
+                 edit_table.mf_dttm = mf_dttm;
+                 edit_table.tx_dttm = tx_dttm;
+               });
+           }
+        }
 
+};
+EOSIO_ABI(Brands,(create)(del)(edit)(auth))
