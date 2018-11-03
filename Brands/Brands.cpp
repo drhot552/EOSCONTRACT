@@ -55,17 +55,18 @@ class Brands : public eosio::contract
             }
         }
         //delete
-        void del(uint64_t id, string _brands_num)
+        void del(uint64_t id, account_name first, string _brands_num)
         {
             _brands tables(_self,_self);
             auto iter=tables.find(id);
             if(iter!=tables.end())
             {
+                eosio_assert( iter->first != first, "no match first account" );
                 tables.erase(iter);
             }
         }
         //edit (product edit)
-        void edit(uint64_t id, string _product_name, string _brands_num, string _type, string _reg_dttm, string _mf_dttm)
+        void edit(uint64_t id, account_name first, string _product_name, string _brands_num, string _type, string _reg_dttm, string _mf_dttm)
         {
              _brands tables(_self,_self);
             auto iter=tables.find(id);
@@ -73,6 +74,7 @@ class Brands : public eosio::contract
             {
                 tables.modify(iter,_self,[&](auto& edit_table)
                 {
+                  eosio_assert( edit_table.first != first, "no match first account" );
                   edit_table.brands_num = _brands_num;
                   edit_table.product_name = _product_name;
                   edit_table.reg_dttm = _reg_dttm;
@@ -91,6 +93,9 @@ class Brands : public eosio::contract
            {
                tables.modify(iter,_self,[&](auto& edit_table)
                {
+                 eosio_assert( edit_table.to != from, "no match account" );
+                 eosio_assert( edit_table.brands_num != brands_num, "no match brands_num" );
+
                  edit_table.id = id;
                  edit_table.first = first;
                  edit_table.to = to;
