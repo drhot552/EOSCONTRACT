@@ -62,7 +62,7 @@ class Brands : public eosio::contract
             if(iter!=tables.end())
             {
                 require_auth( iter->first );
-                eosio_assert( iter->brands_num != _brands_num, "no match brands num" );
+                eosio_assert( iter->brands_num == _brands_num, "no match brands num" );
                 tables.erase(iter);
             }
         }
@@ -76,8 +76,8 @@ class Brands : public eosio::contract
                 tables.modify(iter,_self,[&](auto& edit_table)
                 {
                   require_auth( iter->first );
-                  eosio_assert( edit_table.product_name != _product_name, "no match product name");
-                  eosio_assert( edit_table.brands_num != _brands_num, "no match brands num");
+                  eosio_assert( edit_table.product_name == _product_name, "no match product name");
+                  eosio_assert( edit_table.brands_num == _brands_num, "no match brands num");
 
                   edit_table.brands_num = _brands_num;
                   edit_table.product_name = _product_name;
@@ -98,9 +98,9 @@ class Brands : public eosio::contract
                tables.modify(iter,_self,[&](auto& edit_table)
                {
                  require_auth( iter->to );
-                 eosio_assert( edit_table.first != first, "no match first account" );
-                 eosio_assert( edit_table.to != from, "no match account" );
-                 eosio_assert( edit_table.brands_num != brands_num, "no match brands_num" );
+                 eosio_assert( edit_table.first == first, "no match first account" );
+                 eosio_assert( edit_table.to == from, "no match account" );
+                 eosio_assert( edit_table.brands_num == brands_num, "no match brands_num" );
 
                  edit_table.id = id;
                  edit_table.first = first;
