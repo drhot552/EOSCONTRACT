@@ -99,8 +99,14 @@ class Brands : public eosio::contract
                {
                  require_auth( iter->to );
                  eosio_assert( edit_table.first == first, "no match first account" );
-                 eosio_assert( edit_table.to == from, "no match account" );
+                 eosio_assert( edit_table.to == from, "no match account");
                  eosio_assert( edit_table.brands_num == brands_num, "no match brands_num" );
+                 eosio_assert( edit_table.brands_name == brands_name, "no match brands_name" );
+                 eosio_assert( edit_table.product_name == product_name, "no match product_name" );
+                 eosio_assert( edit_table.brands_num == brands_num, "no match brands_num" );
+                 eosio_assert( edit_table.type == type, "no match type" );
+                 eosio_assert( edit_table.reg_dttm == reg_dttm, "no match reg_dttm");
+                 eosio_assert( edit_table.mf_dttm == mf_dttm, "no match mf_dttm");
 
                  edit_table.id = id;
                  edit_table.first = first;
