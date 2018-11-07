@@ -756,6 +756,9 @@
    (get_local $13)
    (get_local $4)
   )
+  (call $require_auth
+   (get_local $2)
+  )
   (i32.store
    (i32.add
     (get_local $13)
@@ -773,7 +776,7 @@
   )
   (i64.store offset=56
    (get_local $13)
-   (tee_local $4
+   (tee_local $2
     (i64.load
      (get_local $0)
     )
@@ -781,7 +784,7 @@
   )
   (i64.store offset=64
    (get_local $13)
-   (get_local $4)
+   (get_local $2)
   )
   (block $label$0
    (block $label$1
@@ -790,8 +793,8 @@
       (i32.lt_s
        (tee_local $12
         (call $db_find_i64
-         (get_local $4)
-         (get_local $4)
+         (get_local $2)
+         (get_local $2)
          (i64.const 4453273743216607232)
          (get_local $1)
         )
@@ -826,7 +829,7 @@
      )
      (br $label$0)
     )
-    (set_local $4
+    (set_local $2
      (i64.load
       (get_local $0)
      )
@@ -893,7 +896,7 @@
       (get_local $13)
       (i32.const 56)
      )
-     (get_local $4)
+     (get_local $2)
      (i32.add
       (get_local $13)
       (i32.const 8)

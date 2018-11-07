@@ -28,6 +28,9 @@ class Brands : public eosio::contract
         void create(uint64_t id, account_name first, account_name to, account_name from, string brands_name, string product_name,
                      string brands_num, string type, string reg_dttm, string mf_dttm, string tx_dttm)
         {
+
+              require_auth(first);
+
              _brands tables(_self,_self);
 
             auto iter=tables.find(id);
