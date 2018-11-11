@@ -79,8 +79,6 @@ class Brands : public eosio::contract
                 tables.modify(iter,_self,[&](auto& edit_table)
                 {
                   require_auth( iter->first );
-                  eosio_assert( edit_table.product_name == _product_name, "no match product name");
-                  eosio_assert( edit_table.brands_num == _brands_num, "no match brands num");
 
                   edit_table.brands_num = _brands_num;
                   edit_table.product_name = _product_name;
